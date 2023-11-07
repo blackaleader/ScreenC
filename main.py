@@ -1,3 +1,7 @@
+from io import BytesIO
+import win32clipboard
+from PIL import Image
+
 from tkinter import *
 import pyautogui
 
@@ -7,7 +11,18 @@ from datetime import datetime
 def take_bounded_screenshot(x1, y1, x2, y2):
     image = pyautogui.screenshot(region=(x1, y1, x2, y2))
     file_name = datetime.now().strftime("%f")
-    image.save("screenc/" + file_name + ".png")
+    image.save(f"screenc{file_name}.png")
+
+
+    output = BytesIO()
+    image.convert('RGB').save(output, 'BMP')
+    data = output.getvalue()[14:]
+    output.close()
+
+    win32clipboard.OpenClipboard()
+    win32clipboard.EmptyClipboard()
+    win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
+    win32clipboard.CloseClipboard()
 
 
 class Application():
