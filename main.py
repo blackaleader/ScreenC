@@ -5,10 +5,9 @@ from tkinter import *
 import pyautogui
 from datetime import datetime
 import boto3
-<<<<<<< HEAD
+
 import os
 
-=======
 import json
 
 
