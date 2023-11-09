@@ -56,7 +56,7 @@ class Application():
 
         root.geometry('400x50+200+200') 
         root.title('ScreenC')
-        root.iconbitmap("C:/Users/Leader/Desktop/github desktop/ScreenC/ScreenC/lion.ico")
+        root.iconbitmap("./lion.ico")
 
         self.menu_frame = Frame(master)
         self.menu_frame.pack(fill=BOTH, expand=YES, padx=1, pady=1)
