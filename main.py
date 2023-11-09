@@ -5,6 +5,14 @@ import pyautogui
 
 from datetime import datetime
 
+import boto3
+
+access_key = '25df5980-3ba3-4cf8-9f39-1c34fa11d18b'
+secret_key = '1d59802c8c9f017e8617e58553fe2fc8b161e340e2b61c03a70ce1ca7fc19e80'
+
+
+
+
 
 def take_bounded_screenshot(x1, y1, x2, y2):
     image = pyautogui.screenshot(region=(x1, y1, x2, y2))
@@ -12,15 +20,29 @@ def take_bounded_screenshot(x1, y1, x2, y2):
     image.save(f"screenc{file_name}.png")
 
 
-    output = BytesIO()
-    image.convert('RGB').save(output, 'BMP')
-    data = output.getvalue()[14:]
-    output.close()
+    # output = BytesIO()
+    # image.convert('RGB').save(output, 'BMP')
+    # data = output.getvalue()[14:]
+    # output.close()
 
-    win32clipboard.OpenClipboard()
-    win32clipboard.EmptyClipboard()
-    win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
-    win32clipboard.CloseClipboard()
+    # win32clipboard.OpenClipboard()
+    # win32clipboard.EmptyClipboard()
+    # win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
+    # win32clipboard.CloseClipboard()
+
+    b3_session = boto3.Session(aws_access_key_id=access_key,
+                           aws_secret_access_key=secret_key,
+                           )
+
+    b3_client = b3_session.client('s3', endpoint_url="https://papirous.s3.ir-thr-at1.arvanstorage.ir")  
+
+    bucket = b3_client.upload_file(f'screenc{file_name}.png', "screenC", f'screenc{file_name}.png')
+
+    # b3_client.download_file('screenC', f'screenc{file_name}.png', f'screenc{file_name}.png')
+
+
+
+
 
 
 class Application():
