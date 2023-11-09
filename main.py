@@ -1,10 +1,9 @@
 from io import BytesIO
 from PIL import Image
+import win32clipboard
 from tkinter import *
 import pyautogui
-
 from datetime import datetime
-
 import boto3
 
 access_key = '25df5980-3ba3-4cf8-9f39-1c34fa11d18b'
@@ -20,15 +19,6 @@ def take_bounded_screenshot(x1, y1, x2, y2):
     image.save(f"screenc{file_name}.png")
 
 
-    # output = BytesIO()
-    # image.convert('RGB').save(output, 'BMP')
-    # data = output.getvalue()[14:]
-    # output.close()
-
-    # win32clipboard.OpenClipboard()
-    # win32clipboard.EmptyClipboard()
-    # win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
-    # win32clipboard.CloseClipboard()
 
     b3_session = boto3.Session(aws_access_key_id=access_key,
                            aws_secret_access_key=secret_key,
@@ -36,7 +26,17 @@ def take_bounded_screenshot(x1, y1, x2, y2):
 
     b3_client = b3_session.client('s3', endpoint_url="https://papirous.s3.ir-thr-at1.arvanstorage.ir")  
 
-    bucket = b3_client.upload_file(f'screenc{file_name}.png', "screenC", f'screenc{file_name}.png')
+    bucket = b3_client.upload_file(f'screenc{file_name}.png', "screenC", f'screenc{file_name}.png' , ExtraArgs={'ACL': 'public-read'})
+
+
+    # output = BytesIO()
+    # image.convert('RGB').save(output, 'BMP')
+    data = f"https://papirous.s3.ir-thr-at1.arvanstorage.ir/screenC/screenc{file_name}.png?versionId="
+    # output.close()
+    win32clipboard.OpenClipboard()
+    win32clipboard.EmptyClipboard()
+    win32clipboard.SetClipboardData(win32clipboard.CF_UNICODETEXT ,data )
+    win32clipboard.CloseClipboard()
 
     # b3_client.download_file('screenC', f'screenc{file_name}.png', f'screenc{file_name}.png')
 
@@ -56,6 +56,7 @@ class Application():
 
         root.geometry('400x50+200+200') 
         root.title('ScreenC')
+        root.iconbitmap("C:/Users/Leader/Desktop/github desktop/ScreenC/ScreenC/lion.ico")
 
         self.menu_frame = Frame(master)
         self.menu_frame.pack(fill=BOTH, expand=YES, padx=1, pady=1)
