@@ -5,7 +5,11 @@ from tkinter import *
 import pyautogui
 from datetime import datetime
 import boto3
+
+import os
+
 import json
+
 
 config_file_path = "config.json"
 with open(config_file_path, 'r') as config_file:
@@ -34,17 +38,15 @@ def take_bounded_screenshot(x1, y1, x2, y2):
     bucket = b3_client.upload_file(f'screenc{file_name}.png', "screenC", f'screenc{file_name}.png' , ExtraArgs={'ACL': 'public-read'})
 
 
-    # output = BytesIO()
-    # image.convert('RGB').save(output, 'BMP')
+    
     data = f"https://papirous.s3.ir-thr-at1.arvanstorage.ir/screenC/screenc{file_name}.png?versionId="
-    # output.close()
+
     win32clipboard.OpenClipboard()
     win32clipboard.EmptyClipboard()
     win32clipboard.SetClipboardData(win32clipboard.CF_UNICODETEXT ,data )
     win32clipboard.CloseClipboard()
 
-    # b3_client.download_file('screenC', f'screenc{file_name}.png', f'screenc{file_name}.png')
-
+    os.remove(f'./screenc{file_name}.png')
 
 
 
