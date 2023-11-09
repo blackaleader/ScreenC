@@ -36,22 +36,24 @@ Screen Cloud is a solution crafted to address challenges faced by Iranian users 
    ```
 2. Activate the venv
 
-```sh
-venv\scripts\Activate
-```
+    ```sh
+    venv\scripts\Activate
+    ```
 
 3. Install required libraries
-```sh
-pip install -r requirements.txt
-```
+
+    ```sh
+    pip install -r requirements.txt
+    ```
 
 4. Run the script
-```sh
-python main.py
-```
-```sh
-python3 main.py
-```
+
+    ```sh
+    python main.py
+    ```
+    ```sh
+    python3 main.py
+    ```
 
 ## Authors
 
