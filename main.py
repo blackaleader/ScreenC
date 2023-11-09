@@ -1,7 +1,5 @@
 from io import BytesIO
-import win32clipboard
 from PIL import Image
-
 from tkinter import *
 import pyautogui
 
