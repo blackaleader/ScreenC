@@ -5,10 +5,15 @@ from tkinter import *
 import pyautogui
 from datetime import datetime
 import boto3
+import json
 
-access_key = '25df5980-3ba3-4cf8-9f39-1c34fa11d18b'
-secret_key = '1d59802c8c9f017e8617e58553fe2fc8b161e340e2b61c03a70ce1ca7fc19e80'
+config_file_path = "config.json"
+with open(config_file_path, 'r') as config_file:
+    config_data = json.load(config_file)
 
+access_key = config_data["access_key"]
+secret_key = config_data["secret_key"]
+url = config_data["endpoint_url"]
 
 
 
@@ -24,7 +29,7 @@ def take_bounded_screenshot(x1, y1, x2, y2):
                            aws_secret_access_key=secret_key,
                            )
 
-    b3_client = b3_session.client('s3', endpoint_url="https://papirous.s3.ir-thr-at1.arvanstorage.ir")  
+    b3_client = b3_session.client('s3', endpoint_url=url)  
 
     bucket = b3_client.upload_file(f'screenc{file_name}.png', "screenC", f'screenc{file_name}.png' , ExtraArgs={'ACL': 'public-read'})
 
