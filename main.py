@@ -42,7 +42,7 @@ def take_bounded_screenshot(x1, y1, x2, y2):
 
     bucket = b3_client.upload_file(f'screenc{file_name}.png', "screenC", f'screenc{file_name}.png')
 
-    b3_client.download_file('screenC', f'screenc{file_name}.png', f'screenc{file_name}.png')
+    # b3_client.download_file('screenC', f'screenc{file_name}.png', f'screenc{file_name}.png')
 
 
 
