@@ -1,5 +1,4 @@
 from io import BytesIO
-from PIL import Image
 import win32clipboard
 from tkinter import *
 import pyautogui
@@ -46,14 +45,22 @@ def take_bounded_screenshot(x1, y1, x2, y2):
     win32clipboard.SetClipboardData(win32clipboard.CF_UNICODETEXT ,data )
     win32clipboard.CloseClipboard()
 
-    os.remove(f'./screenc{file_name}.png')
-
-
-
+    if app.no %2 ==0:
+        os.remove(f'./screenc{file_name}.png')
 
 
 class Application():
+    
+
+    no_save = '❌'
+    yes_save = '✅'
+
     def __init__(self, master):
+        self.no = 1
+
+        global click_btn
+        click_btn= PhotoImage(file='plz work.png')
+        click_btn = click_btn.subsample(2,2)
         self.snip_surface = None
         self.master = master
         self.start_x = None
@@ -64,21 +71,36 @@ class Application():
         root.geometry('400x50+200+200') 
         root.title('ScreenC')
         root.iconbitmap("./lion.ico")
+        root.resizable(False,False)
+        self.snipButton1 = Button(root, text=f'Save Images {self.yes_save}', command=self.saveimageicon)
+        self.snipButton1.pack(side='right', )
 
         self.menu_frame = Frame(master)
         self.menu_frame.pack(fill=BOTH, expand=YES, padx=1, pady=1)
 
         self.buttonBar = Frame(self.menu_frame, bg="")
-        self.buttonBar.pack()
+        self.buttonBar.pack(side='left',)
 
-        self.snipButton = Button(self.buttonBar, width=5, height=5, command=self.create_screen_canvas, background="green")
+
+        self.snipButton = Button(self.buttonBar, command=self.create_screen_canvas,image=click_btn, borderwidth=1)
         self.snipButton.pack()
+        
 
         self.master_screen = Toplevel(root)
         self.master_screen.withdraw()
         self.master_screen.attributes("-transparent", "maroon3")
         self.picture_frame = Frame(self.master_screen, background="maroon3")
         self.picture_frame.pack(fill=BOTH, expand=YES)
+    def saveimageicon(self):
+
+        self.no = self.no + 1
+        if self.no % 2 == 0:
+            self.snipButton1.config(text=f'Save Images {self.no_save}')
+
+
+        else :
+            self.snipButton1.config(text=f'Save Images {self.yes_save}')
+
 
     def create_screen_canvas(self):
         self.master_screen.deiconify()
@@ -97,7 +119,7 @@ class Application():
         self.master_screen.attributes("-topmost", True)
 
     def on_button_release(self, event):
-        self.display_rectangle_position()
+
 
         if self.start_x <= self.current_x and self.start_y <= self.current_y:
             take_bounded_screenshot(self.start_x, self.start_y, self.current_x - self.start_x, self.current_y - self.start_y)
@@ -127,9 +149,6 @@ class Application():
     def on_snip_drag(self, event):
         self.current_x, self.current_y = (event.x, event.y)
         self.snip_surface.coords(1, self.start_x, self.start_y, self.current_x, self.current_y)
-
-    def display_rectangle_position(self):
-        pass
 
 
 root = Tk()
