@@ -25,7 +25,11 @@ Screen Cloud is a solution crafted to address challenges faced by Iranian users 
 ### Prerequisites
 
 - Python installed 
+<<<<<<< Updated upstream
 - Amazon S3 account with log-in credentials.
+=======
+- Amazon S3 account with credentials
+>>>>>>> Stashed changes
 
 ### Installation
 
