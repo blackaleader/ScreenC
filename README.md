@@ -6,26 +6,26 @@ Screen Cloud is a solution crafted to address challenges faced by Iranian users 
 
 - **Effortless Uploads:** Easily upload media content to Amazon S3 without the reliance on VPNs or external services.
 
-- **CDN Bypass:** Circumvent CDN restrictions on various platforms, ensuring smooth media sharing experiences.
+- **CDN Bypass:** Bypasses any type of CDN restrictions on a wide range of platforms, ensuring a smooth media sharing experience.
 
-- **Secure Storage:** Utilize the security and reliability of Amazon S3 for storing uploaded content.
+- **Secure Storage:** Utilizes the security and reliability of Amazon S3 for storing uploaded content.
 
 ## How It Works
 
-1. Users take their screen shot using GUI app . 
+1. Users take their own screenshot using the built-in GUI app. 
 
-2. The uploader securely transfers the png to Amazon S3.
+2. The uploader securely transfers their taken PNG to Amazon S3.
 
-3. Uploaded file url will be replaced instead of png in clipboard.
+3. The URL belonging to the taken Screenshot will be replaced instead of a PNG in the clipboard.
 
-4. Share the links on platforms with restricted CDNs, enabling others to access the media seamlessly.
+4. Share the link on platforms with restricted CDNs, enabling others to access the media seamlessly.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Python installed 
-- Amazon S3 account with credentials
+- Amazon S3 account with log-in credentials.
 
 ### Installation
 
