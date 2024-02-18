@@ -1,4 +1,5 @@
 {
+    // Use the Info provided on your AmazonS3 Dashboard to fill the fields below.
     "endpoint_url": "",
     "access_key":"",
     "secret_key": ""
